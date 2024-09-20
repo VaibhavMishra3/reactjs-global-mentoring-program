@@ -1,0 +1,23 @@
+.genre-container {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.genre-button {
+  padding: 10px;
+  border: none;
+  background-color: #232323;
+  color: white;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.genre-button.selected {
+  font-weight: bold;
+  border-bottom: 2px solid #f65261;
+}
+
+.genre-button:hover {
+  color: #f65261;
+}
