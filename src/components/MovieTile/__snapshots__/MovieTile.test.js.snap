@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MovieTile Component matches snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="movie-tile"
+  >
+    <img
+      alt="Pulp Fiction poster"
+      src="https://via.placeholder.com/150"
+    />
+    <div
+      class="movie-info"
+    >
+      <h4>
+        Pulp Fiction
+      </h4>
+      <p>
+        1994
+      </p>
+      <p>
+        Action, Drama
+      </p>
+    </div>
+  </div>
+</DocumentFragment>
+`;

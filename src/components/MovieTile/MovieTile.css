@@ -1,0 +1,39 @@
+.movie-tile {
+  background-color: #424242;
+  color: #ffffff;
+  border-radius: 4px;
+  overflow: hidden;
+  cursor: pointer;
+  max-width: 200px;
+  transition: transform 0.2s ease;
+}
+
+.movie-tile:hover {
+  transform: scale(1.05);
+}
+
+.movie-tile img {
+  width: 100%;
+  height: auto;
+}
+
+.movie-info {
+  padding: 10px;
+}
+
+.movie-info h4 {
+  margin: 0;
+  font-size: 18px;
+  color: #ffffff;
+}
+
+.movie-info p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #555555;
+}
+
+.movie-info p:first-of-type {
+  font-weight: bold;
+  color: #f65261;
+}

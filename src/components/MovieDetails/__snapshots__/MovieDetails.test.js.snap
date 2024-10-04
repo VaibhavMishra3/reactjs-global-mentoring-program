@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MovieDetails Component matches snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="movie-details"
+  >
+    <img
+      alt="Pulp Fiction poster"
+      src="https://via.placeholder.com/150"
+    />
+    <div
+      class="details-info"
+    >
+      <h2>
+        Pulp Fiction
+      </h2>
+      <p>
+        8.9
+      </p>
+      <p>
+        1994
+      </p>
+      <p>
+        2h 34min
+      </p>
+      <p>
+        Jules Winnfield and Vincent Vega are hit men...
+      </p>
+    </div>
+  </div>
+</DocumentFragment>
+`;
