@@ -1,0 +1,68 @@
+.homepage {
+  padding: 20px;
+  background-color: #232323;
+  color: #fff;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.add-movie-btn {
+  background-color: #f65261;
+  border: none;
+  padding: 10px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.movie-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+/* Movie Details Styles */
+.movie-details-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 20px;
+}
+
+.movie-details {
+  background-color: #424242;
+  padding: 20px;
+  border-radius: 8px;
+  display: flex;
+  gap: 20px;
+  color: #fff;
+}
+
+.movie-details img {
+  width: 150px;
+  height: auto;
+}
+
+.movie-details .close-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #fff;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
