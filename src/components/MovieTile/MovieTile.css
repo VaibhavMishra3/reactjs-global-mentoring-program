@@ -1,39 +1,52 @@
 .movie-tile {
-  background-color: #424242;
-  color: #ffffff;
-  border-radius: 4px;
+  position: relative;
+  margin: 15px;
+  width: 200px;
+  background-color: #232323;
+  border-radius: 8px;
   overflow: hidden;
-  cursor: pointer;
-  max-width: 200px;
-  transition: transform 0.2s ease;
+  transition: transform 0.2s;
 }
 
 .movie-tile:hover {
   transform: scale(1.05);
 }
 
-.movie-tile img {
+.movie-poster {
   width: 100%;
   height: auto;
 }
 
 .movie-info {
   padding: 10px;
+  color: white;
 }
 
-.movie-info h4 {
-  margin: 0;
-  font-size: 18px;
-  color: #ffffff;
+.three-dots {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
 }
 
-.movie-info p {
-  margin: 5px 0;
-  font-size: 14px;
-  color: #555555;
+.context-menu {
+  position: absolute;
+  top: 30px;
+  right: 10px;
+  background-color: #424242;
+  border-radius: 4px;
+  padding: 10px;
+  color: white;
+  z-index: 10;
 }
 
-.movie-info p:first-of-type {
-  font-weight: bold;
-  color: #f65261;
+.menu-item {
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.menu-item:hover {
+  background-color: #555555;
 }

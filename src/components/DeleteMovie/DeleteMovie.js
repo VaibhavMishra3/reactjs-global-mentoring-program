@@ -1,13 +1,20 @@
 import React, { useState } from "react";
-import Dialog from "./Dialog";
+import axios from "axios";
+import Dialog from "../Dialog/Dialog"
 
-function DeleteMovie({ onDelete }) {
+function DeleteMovie({ movieId, onDelete }) {
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleDelete = () => {
-    console.log("Movie deleted");
-    onDelete();
-    setIsOpen(false);
+  const handleDelete = async () => {
+    try {
+      // Make DELETE request to remove the movie
+      await axios.delete(`https://localhost:4000/movies/${movieId}`);
+      console.log("Movie deleted");
+      onDelete();  // Call the onDelete function to update the UI or notify the parent component
+      setIsOpen(false);
+    } catch (error) {
+      console.error("Error deleting movie:", error);
+    }
   };
 
   return (

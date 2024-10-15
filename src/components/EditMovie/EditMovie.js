@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Dialog from "./Dialog";
-import MovieForm from "./MovieForm";
+import Dialog from "../Dialog/Dialog";
+import MovieForm from "../MovieForm/MovieForm";
 
 const mockMovieData = {
   title: "Moana",
