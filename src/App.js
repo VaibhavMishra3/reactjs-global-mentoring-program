@@ -1,13 +1,19 @@
 import React from "react";
-import HomePage from "./pages/MovieListPage";
-// Example mock data
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import MovieListPage from "./pages/MovieListPage";
+import SearchForm from "./components/SearchForm/SearchForm";
+import MovieDetailsLoader from "./components/MovieDetailsLoader/MovieDetailsLoader";
 
 function App() {
   return (
-    <div className="App">
-      {/* <Counter initialValue={0} /> */}
-      <HomePage />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<MovieListPage />}>
+          <Route index element={<SearchForm />} /> {/* Default route for SearchForm */}
+          <Route path=":movieId" element={<MovieDetailsLoader />} /> {/* Dynamic route for movie details */}
+        </Route>
+      </Routes>
+    </Router>
   );
 }
 

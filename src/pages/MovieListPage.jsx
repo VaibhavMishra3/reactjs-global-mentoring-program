@@ -1,22 +1,26 @@
 import React, { useState, useEffect } from "react";
-import SearchForm from "../components/SearchForm/SearchForm";
+import { useSearchParams, Outlet, useNavigate } from "react-router-dom";
+// import SearchForm from "../components/SearchForm/SearchForm";
 import GenreSelect from "../components/GenreSelect/GenreSelect";
 import SortControl from "../components/SortControl/SortControl";
 import MovieTile from "../components/MovieTile/MovieTile";
-import MovieDetails from "../components/MovieDetails/MovieDetails";
+// import MovieDetails from "../components/MovieDetails/MovieDetails";
 import Dialog from "../components/Dialog/Dialog";
 import MovieForm from "../components/MovieForm/MovieForm";
-import DeleteMovie from "../components/DeleteMovie/DeleteMovie";
 import axios from "axios";
 import "./MovieListPage.css";
 
 function MovieListPage() {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [sortCriterion, setSortCriterion] = useState("release_date");
-  const [sortOrder, setSortOrder] = useState("asc");
-  const [activeGenre, setActiveGenre] = useState("All");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
+
+  const searchQuery = searchParams.get("query") || ""; // Default to empty string
+  const sortCriterion = searchParams.get("sortBy") || "release_date"; // Default to "release_date"
+  const sortOrder = searchParams.get("sortOrder") || "asc"; // Default to "asc"
+  const activeGenre = searchParams.get("genre") || "All"; // Default to "All"
+
   const [movieList, setMovieList] = useState([]);
-  const [selectedMovie, setSelectedMovie] = useState(null);
+  // const [selectedMovie, setSelectedMovie] = useState(null);
 
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
@@ -24,7 +28,6 @@ function MovieListPage() {
   const [movieToEdit, setMovieToEdit] = useState(null);
   const [movieToDelete, setMovieToDelete] = useState(null);
 
-  // Fetch movies from the backend
   useEffect(() => {
     const fetchMovies = async () => {
       try {
@@ -48,7 +51,34 @@ function MovieListPage() {
     fetchMovies();
   }, [searchQuery, sortCriterion, sortOrder, activeGenre]);
 
-  // Handlers for edit and delete
+  // const handleSearch = (query) => {
+  //   setSearchParams((prevParams) => {
+  //     prevParams.set("query", query);
+  //     return prevParams;
+  //   });
+  // };
+
+  const handleGenreSelect = (genre) => {
+    setSearchParams((prevParams) => {
+      prevParams.set("genre", genre);
+      return prevParams;
+    });
+  };
+
+  const handleSortChange = (sort) => {
+    setSearchParams((prevParams) => {
+      prevParams.set("sortBy", sort);
+      return prevParams;
+    });
+  };
+
+  const handleSortOrderChange = (order) => {
+    setSearchParams((prevParams) => {
+      prevParams.set("sortOrder", order);
+      return prevParams;
+    });
+  };
+
   const handleEditMovie = (movie) => {
     setMovieToEdit(movie);
     setIsEditDialogOpen(true);
@@ -59,8 +89,11 @@ function MovieListPage() {
     setIsDeleteDialogOpen(true);
   };
 
+  // Navigate to the movie details page on click
   const handleMovieClick = (movie) => {
-    setSelectedMovie(movie);
+    navigate(`/${movie.id}`, {
+      state: { from: window.location.pathname + window.location.search },
+    });
   };
 
   const handleDeleteConfirm = async () => {
@@ -93,11 +126,13 @@ function MovieListPage() {
   return (
     <div className="movie-list-page">
       {/* Add movie button */}
-      <button className="add-movie-button" onClick={() => setIsAddDialogOpen(true)}>
+      <button
+        className="add-movie-button"
+        onClick={() => setIsAddDialogOpen(true)}
+      >
         + Add Movie
       </button>
-
-      {/* Render MovieDetails if a movie is selected */}
+      {/* Render MovieDetails if a movie is selected
       {selectedMovie ? (
         <MovieDetails
           movie={selectedMovie}
@@ -106,16 +141,23 @@ function MovieListPage() {
       ) : (
         <>
           <h1>Find Your Movie</h1>
-          <SearchForm initialQuery={searchQuery} onSearch={setSearchQuery} />
+          <SearchForm initialQuery={searchQuery} onSearch={handleSearch} /> */}
+    
+         
+
           <div className="genre-select">
-            <GenreSelect genres={["All", "Documentary", "Comedy", "Horror", "Crime"]} selectedGenre={activeGenre} onSelect={setActiveGenre} />
+            <GenreSelect
+              genres={["All", "Documentary", "Comedy", "Horror", "Crime"]}
+              selectedGenre={activeGenre}
+              onSelect={handleGenreSelect}
+            />
           </div>
           <div className="sort-control">
             <SortControl
               currentSort={sortCriterion}
               currentOrder={sortOrder}
-              onSortChange={setSortCriterion}
-              onSortOrderChange={setSortOrder}
+              onSortChange={handleSortChange}
+              onSortOrderChange={handleSortOrderChange}
             />
           </div>
 
@@ -131,31 +173,35 @@ function MovieListPage() {
               />
             ))}
           </div>
-        </>
-      )}
-
       {/* Add movie dialog */}
       {isAddDialogOpen && (
         <Dialog title="Add Movie" onClose={() => setIsAddDialogOpen(false)}>
-          <MovieForm onSubmitSuccess={(newMovie) => setMovieList([...movieList, newMovie])} />
+          <MovieForm
+            onSubmitSuccess={(newMovie) =>
+              setMovieList([...movieList, newMovie])
+            }
+          />
         </Dialog>
       )}
-
       {/* Edit movie dialog */}
       {isEditDialogOpen && (
         <Dialog title="Edit Movie" onClose={() => setIsEditDialogOpen(false)}>
           <MovieForm initialMovie={movieToEdit} onSubmit={handleEditSubmit} />
         </Dialog>
       )}
-
       {/* Delete movie confirmation dialog */}
       {isDeleteDialogOpen && (
-        <Dialog title="Delete Movie" onClose={() => setIsDeleteDialogOpen(false)}>
+        <Dialog
+          title="Delete Movie"
+          onClose={() => setIsDeleteDialogOpen(false)}
+        >
           <p>Are you sure you want to delete this movie?</p>
           <button onClick={() => setIsDeleteDialogOpen(false)}>Cancel</button>
           <button onClick={handleDeleteConfirm}>Confirm</button>
         </Dialog>
       )}
+      <Outlet />{" "}
+      {/* This will be replaced with MovieDetails when a movie is selected */}
     </div>
   );
 }
