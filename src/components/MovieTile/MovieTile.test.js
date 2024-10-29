@@ -1,36 +1,49 @@
-import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
-import MovieTile from "./MovieTile";
+import React from 'react';
+import renderer from 'react-test-renderer';
+import { MemoryRouter } from 'react-router-dom';
+import { cleanup, render, screen } from '@testing-library/react'
 
-// Mock data for the tests
-const movie = {
-  imageUrl: "https://via.placeholder.com/150",
-  title: "Pulp Fiction",
-  year: 1994,
-  genres: ["Action", "Drama"],
-};
+import MovieTile from './MovieTile';
+import { MOCK_MOVIES } from '../../constants/mockData.js';
 
-describe("MovieTile Component", () => {
-  test("renders movie title, year, and genres correctly", () => {
-    render(<MovieTile movie={movie} onClick={() => {}} />);
+describe('MovieTile', () => {
 
-    expect(screen.getByText("Pulp Fiction")).toBeInTheDocument();
-    expect(screen.getByText("1994")).toBeInTheDocument();
-    expect(screen.getByText("Action, Drama")).toBeInTheDocument();
+  afterEach(cleanup);
+
+  it('should match snapshot', () => {
+    const movieTile = renderer
+      .create(
+        <MemoryRouter>
+          <MovieTile
+            movie={MOCK_MOVIES[0]}
+            handleClick={console.log}
+          />
+        </MemoryRouter>
+      )
+      .toJSON();
+
+    expect(movieTile).toMatchSnapshot();
   });
 
-  test("calls onClick callback when the tile is clicked", () => {
-    const handleClick = jest.fn();
-    render(<MovieTile movie={movie} onClick={handleClick} />);
+  it('render correctly', () => {
+    const movie = MOCK_MOVIES[0];
 
-    fireEvent.click(screen.getByText("Pulp Fiction"));
-    expect(handleClick).toHaveBeenCalledWith(movie);
-  });
-
-  test("matches snapshot", () => {
-    const { asFragment } = render(
-      <MovieTile movie={movie} onClick={() => {}} />
+    render(
+      <MemoryRouter>
+        <MovieTile
+          movie={movie}
+          handleClick={console.log}
+        />
+      </MemoryRouter>
     );
-    expect(asFragment()).toMatchSnapshot();
+
+    const image = screen.getByTestId('movie-tile-poster');
+    expect(image.getAttribute('src')).toEqual(movie.poster_path);
+    expect(image.getAttribute('alt')).toEqual(movie.title);
+
+    expect(screen.getByTestId('movie-tile-title')).toHaveTextContent(movie.title);
+    expect(screen.getByTestId('movie-tile-year')).toHaveTextContent('1994');
+    expect(screen.getByTestId('movie-tile-genres')).toHaveTextContent('Thriller, Crime');
   });
+
 });

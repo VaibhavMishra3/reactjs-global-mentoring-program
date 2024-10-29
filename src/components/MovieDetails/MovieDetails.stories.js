@@ -1,18 +1,14 @@
-import React from "react";
-import MovieDetails from "./MovieDetails";
+import MovieDetails from './MovieDetails';
+import { MOCK_MOVIES } from '../../constants/mockData.js';
 
 export default {
-  title: "Components/MovieDetails",
-  component: MovieDetails,
+  component: MovieDetails
 };
 
-const movie = {
-  imageUrl: "https://via.placeholder.com/150",
-  title: "Pulp Fiction",
-  year: 1994,
-  rating: 8.9,
-  duration: "2h 34min",
-  description: "Jules Winnfield and Vincent Vega are two hit men...",
+export const Default = {
+  args: {
+    movie: MOCK_MOVIES[0],
+  },
+  parameters: {
+  }
 };
-
-export const Default = () => <MovieDetails movie={movie} />;

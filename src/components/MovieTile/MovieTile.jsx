@@ -1,45 +1,55 @@
-import React from "react";
-import "./MovieTile.css"; // Add your styles here
+import React from 'react';
+import { PropTypes } from 'prop-types';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
-function MovieTile({ movie, onEdit, onDelete }) {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+import { formatGenres, formatYear } from '../../utils/formatters.js';
+import { movieType } from '../../constants/types.js';
+import { navigation } from '../../utils/navigation.js';
+import posterNotAvailable from '../../assets/images/poster-not-available.jpg';
 
-  const handleMenuToggle = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+const MovieTile = ({ movie, handleClick }) => {
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
 
-  const handleEditClick = () => {
-    onEdit(movie); // Pass the movie to the parent for editing
-    setIsMenuOpen(false);
-  };
-
-  const handleDeleteClick = () => {
-    onDelete(movie.id); // Pass the movie ID to the parent for deletion
-    setIsMenuOpen(false);
+  const handleImageError = ({ target }) => {
+    target.src = posterNotAvailable;
+    target.alt = 'Poster not available';
   };
 
   return (
-    <div className="movie-tile">
-      <img src={movie.poster_path} alt={movie.title} className="movie-poster" />
-      <div className="movie-info">
-        <h3>{movie.title}</h3>
-        <span>{movie.release_date.split("-")[0]}</span>
-      </div>
-      <div className="three-dots" onClick={handleMenuToggle}>
-        &#x2022;&#x2022;&#x2022;
-      </div>
-      {isMenuOpen && (
-        <div className="context-menu">
-          <div className="menu-item" onClick={handleEditClick}>
-            Edit
-          </div>
-          <div className="menu-item" onClick={handleDeleteClick}>
-            Delete
-          </div>
+    <div data-testid='movie-tile' className='border'>
+      <span
+        data-testid='edit-movie'
+        className='float-end'
+        onClick={() => navigate(navigation(`/${movie.id}/edit`, searchParams))}
+      >
+        Edit
+      </span>
+      <div onClick={() => handleClick(movie)}>
+        <div>
+          <img
+            data-testid='movie-tile-poster'
+            className='img-fluid'
+            src={movie.poster_path}
+            alt={movie.title}
+            onError={handleImageError}
+          />
         </div>
-      )}
+        <div>
+          <div>
+            <span data-testid='movie-tile-title' className='h5 float-begin'>{movie.title}</span>
+            {movie.release_date && <span data-testid='movie-tile-year' className='h5 m-2 border border-2 rounded float-begin'>{formatYear(movie.release_date)}</span>}
+          </div>
+          {movie.genres && <div data-testid='movie-tile-genres'>{formatGenres(movie.genres)}</div>}
+        </div>
+      </div>
     </div>
-  );
+  )
 }
+
+MovieTile.propTypes = {
+  movie: movieType.isRequired,
+  handleClick: PropTypes.func.isRequired
+};
 
 export default MovieTile;

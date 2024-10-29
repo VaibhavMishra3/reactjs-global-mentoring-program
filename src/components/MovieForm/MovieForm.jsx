@@ -1,142 +1,97 @@
-import React, { useState } from "react";
-import "./MovieForm.css"; // Add your styles here
+import React from 'react';
+import { PropTypes } from 'prop-types';
+import { Formik, Form } from 'formik';
+import { Container, Row, Modal, Button } from 'react-bootstrap';
 
-const genresList = ["Crime", "Documentary", "Horror", "Comedy"]; // Example genres
+import AreaField from '../AreaField/AreaField';
+import SelectField from '../SelectField/SelectField';
+import TextField from '../TextField/TextField';
+import { GENRES } from '../../constants/data.js';
+import { movieType } from '../../constants/types.js';
+import { INITIAL_VALUES, validator } from './validator.js';
 
-const MovieForm = ({ onSubmitSuccess, initialMovieInfo = {} }) => {
-  const [title, setTitle] = useState(initialMovieInfo.title || "");
-  const [releaseDate, setReleaseDate] = useState(
-    initialMovieInfo.releaseDate || ""
-  );
-  const [movieUrl, setMovieUrl] = useState(initialMovieInfo.movieUrl || "");
-  const [rating, setRating] = useState(initialMovieInfo.rating || "");
-  const [runtime, setRuntime] = useState(initialMovieInfo.runtime || "");
-  const [overview, setOverview] = useState(initialMovieInfo.overview || "");
-  const [selectedGenres, setSelectedGenres] = useState(
-    initialMovieInfo.genres || []
-  );
-
-  const handleGenreChange = (genre) => {
-    if (selectedGenres.includes(genre)) {
-      setSelectedGenres(selectedGenres.filter((g) => g !== genre));
-    } else {
-      setSelectedGenres([...selectedGenres, genre]);
-    }
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const newMovie = {
-      title,
-      releaseDate,
-      movieUrl,
-      rating,
-      runtime,
-      overview,
-      genres: selectedGenres,
-    };
-    // Simulate successful form submission
-    onSubmitSuccess(newMovie);
-  };
-
+const MovieForm = ({ movie, onSubmit }) => {
   return (
-    <form className="movie-form" onSubmit={handleSubmit}>
-      <div className="form-group">
-        <label>Title</label>
-        <input
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          required
-        />
-      </div>
-
-      <div className="form-group">
-        <label>Release Date</label>
-        <input
-          type="date"
-          value={releaseDate}
-          onChange={(e) => setReleaseDate(e.target.value)}
-          required
-        />
-      </div>
-
-      <div className="form-group">
-        <label>Movie URL</label>
-        <input
-          type="url"
-          value={movieUrl}
-          onChange={(e) => setMovieUrl(e.target.value)}
-          required
-        />
-      </div>
-
-      <div className="form-group">
-        <label>Rating</label>
-        <input
-          type="number"
-          value={rating}
-          onChange={(e) => setRating(e.target.value)}
-          step="0.1"
-          min="0"
-          max="10"
-          required
-        />
-      </div>
-
-      <div className="form-group">
-        <label>Runtime (minutes)</label>
-        <input
-          type="number"
-          value={runtime}
-          onChange={(e) => setRuntime(e.target.value)}
-          min="1"
-          required
-        />
-      </div>
-
-      <div className="form-group">
-        <label>Genre</label>
-        <div className="genre-select">
-          {genresList.map((genre) => (
-            <div key={genre} className="genre-option">
-              <input
-                type="checkbox"
-                checked={selectedGenres.includes(genre)}
-                onChange={() => handleGenreChange(genre)}
-              />
-              <label>{genre}</label>
-            </div>
-          ))}
-        </div>
-        {selectedGenres.length === 0 && (
-          <p className="error-message">Select at least one genre to proceed</p>
-        )}
-      </div>
-
-      <div className="form-group">
-        <label>Overview</label>
-        <textarea
-          value={overview}
-          onChange={(e) => setOverview(e.target.value)}
-          required
-        />
-      </div>
-
-      <div className="form-buttons">
-        <button type="reset" className="reset-button">
-          Reset
-        </button>
-        <button
-          type="submit"
-          className="submit-button"
-          disabled={selectedGenres.length === 0}
-        >
-          Submit
-        </button>
-      </div>
-    </form>
+    <Formik
+      initialValues={movie || INITIAL_VALUES}
+      validate={validator}
+      onSubmit={(values, { setSubmitting }) => {
+        onSubmit(values);
+      }}
+    >
+      {({
+        isSubmitting
+      }) => (
+        <Form data-testid={`${movie ? 'edit-movie-form' : 'add-movie-form'}`} noValidate>
+          <Modal.Body>
+            <Container>
+              <Row>
+                <TextField
+                  type='text'
+                  label='Title'
+                  name='title'
+                  placeholder='Enter title'
+                />
+                <TextField
+                  type='text'
+                  label='Release date'
+                  name='release_date'
+                  placeholder='Enter release date'
+                />
+              </Row>
+              <Row>
+                <TextField
+                  type='text'
+                  label='Movie URL'
+                  name='poster_path'
+                  placeholder='https://'
+                />
+                <TextField
+                  type='number'
+                  label='Rating'
+                  name='vote_average'
+                  placeholder='7.8'
+                />
+              </Row>
+              <Row>
+                <SelectField
+                  name='genres'
+                  label='Genre'
+                  options={GENRES}
+                />
+                <TextField
+                  type='number'
+                  label='Runtime'
+                  name='runtime'
+                  placeholder='minutes'
+                />
+              </Row>
+              <Row>
+                <AreaField
+                  label='Overview'
+                  name='overview'
+                  placeholder='Movie description'
+                />
+              </Row>
+            </Container>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant='secondary' type='reset'>
+              Reset
+            </Button>
+            <Button variant='primary' type='submit' disabled={isSubmitting}>
+              Submit
+            </Button>
+          </Modal.Footer>
+        </Form>
+      )}
+    </Formik>
   );
+}
+
+MovieForm.propTypes = {
+  movie: movieType,
+  onSubmit: PropTypes.func.isRequired
 };
 
 export default MovieForm;

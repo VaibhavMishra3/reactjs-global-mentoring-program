@@ -1,32 +1,45 @@
-import React from "react";
-import { render, screen } from "@testing-library/react";
-import MovieDetails from "./MovieDetails";
+import React from 'react';
+import renderer from 'react-test-renderer';
+import { cleanup, render, screen } from '@testing-library/react'
 
-// Mock data for the tests
-const movie = {
-  imageUrl: "https://via.placeholder.com/150",
-  title: "Pulp Fiction",
-  year: 1994,
-  rating: 8.9,
-  duration: "2h 34min",
-  description: "Jules Winnfield and Vincent Vega are hit men...",
-};
+import MovieDetails from './MovieDetails';
+import { MOCK_MOVIES } from '../../constants/mockData.js';
 
-describe("MovieDetails Component", () => {
-  test("renders movie details correctly", () => {
-    render(<MovieDetails movie={movie} />);
+describe('MovieDetails', () => {
 
-    expect(screen.getByText("Pulp Fiction")).toBeInTheDocument();
-    expect(screen.getByText("1994")).toBeInTheDocument();
-    expect(screen.getByText("8.9")).toBeInTheDocument();
-    expect(screen.getByText("2h 34min")).toBeInTheDocument();
-    expect(
-      screen.getByText("Jules Winnfield and Vincent Vega are hit men...")
-    ).toBeInTheDocument();
+  afterEach(cleanup);
+
+  it('should match snapshot', () => {
+    const movieDetails = renderer
+      .create(
+        <MovieDetails
+          movie={MOCK_MOVIES[0]}
+        />
+      )
+      .toJSON();
+
+    expect(movieDetails).toMatchSnapshot();
   });
 
-  test("matches snapshot", () => {
-    const { asFragment } = render(<MovieDetails movie={movie} />);
-    expect(asFragment()).toMatchSnapshot();
+  it('render correctly', () => {
+    const movie = MOCK_MOVIES[0];
+
+    render(
+      <MovieDetails
+        movie={movie}
+      />
+    );
+
+    const image = screen.getByTestId('movie-details-poster');
+    expect(image.getAttribute('src')).toEqual(movie.poster_path);
+    expect(image.getAttribute('alt')).toEqual(movie.title);
+
+    expect(screen.getByTestId('movie-details-title')).toHaveTextContent(movie.title);
+    expect(screen.getByTestId('movie-details-vote')).toHaveTextContent(movie.vote_average);
+    expect(screen.getByTestId('movie-details-genres')).toHaveTextContent('Thriller, Crime');
+    expect(screen.getByTestId('movie-details-year')).toHaveTextContent('1994');
+    expect(screen.getByTestId('movie-details-runtime')).toHaveTextContent('2h 34min');
+    expect(screen.getByTestId('movie-details-overview')).toHaveTextContent(movie.overview);
   });
+
 });
