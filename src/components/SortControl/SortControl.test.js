@@ -1,31 +1,66 @@
-import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
-import SortControl from "./SortControl";
+import React from 'react';
+import renderer from 'react-test-renderer';
+import { cleanup, render, screen, waitFor } from '@testing-library/react'
+import userEvent from '@testing-library/user-event';
 
-describe("SortControl Component", () => {
-  test("renders label and select dropdown", () => {
-    render(<SortControl currentSort="releaseDate" onSortChange={() => {}} />);
+import SortControl from './SortControl';
+import { SORT_OPTIONS } from '../../constants/data.js';
 
-    expect(screen.getByText("Sort by")).toBeInTheDocument();
-    expect(screen.getByDisplayValue("Release Date")).toBeInTheDocument();
+describe('SortControl', () => {
+
+  afterEach(cleanup);
+
+  it('should match snapshot', () => {
+  const sortControl = renderer
+    .create(
+    <SortControl
+      sortOptions={SORT_OPTIONS}
+      defaultSort={SORT_OPTIONS[1].value}
+      handleChange={console.log}
+    />
+    )
+    .toJSON();
+
+  expect(sortControl).toMatchSnapshot();
   });
 
-  test("calls onSortChange callback when an option is selected", () => {
-    const handleSortChange = jest.fn();
-    render(
-      <SortControl currentSort="releaseDate" onSortChange={handleSortChange} />
-    );
+  it('render correctly', () => {
+  render(
+    <SortControl
+    sortOptions={SORT_OPTIONS}
+    defaultSort={SORT_OPTIONS[1].value}
+    handleChange={console.log}
+    />
+  );
 
-    fireEvent.change(screen.getByRole("combobox"), {
-      target: { value: "title" },
-    });
-    expect(handleSortChange).toHaveBeenCalledWith("title");
+  expect(screen.getByRole('combobox')).toHaveValue('release_date');
+  expect(screen.getByRole('option', { name: 'Title' }).selected).toBe(false);
+  expect(screen.getByRole('option', { name: 'Release date' }).selected).toBe(true);
   });
 
-  test("matches snapshot", () => {
-    const { asFragment } = render(
-      <SortControl currentSort="releaseDate" onSortChange={() => {}} />
-    );
-    expect(asFragment()).toMatchSnapshot();
+  it('should select value', async () => {
+  const { user } = {
+    user: userEvent.setup(),
+    ...render(
+    <SortControl
+      sortOptions={SORT_OPTIONS}
+      defaultSort={SORT_OPTIONS[1].value}
+      handleChange={console.log}
+    />
+    )
+  };
+
+  expect(screen.getByRole('combobox')).toHaveValue('release_date');
+  expect(screen.getByRole('option', { name: 'Title' }).selected).toBe(false);
+  expect(screen.getByRole('option', { name: 'Release date' }).selected).toBe(true);
+
+  await waitFor(async () => {
+    await user.selectOptions(screen.getByRole('combobox'), 'title');
   });
+
+  expect(screen.getByRole('combobox')).toHaveValue('title');
+  expect(screen.getByRole('option', { name: 'Title' }).selected).toBe(true);
+  expect(screen.getByRole('option', { name: 'Release date' }).selected).toBe(false);
+  });
+
 });

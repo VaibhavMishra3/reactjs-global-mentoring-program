@@ -1,9 +1,20 @@
-import React from 'react';
 import Counter from './Counter';
 
 export default {
-  title: 'Components/Counter',
-  component: Counter,
+  component: Counter
 };
 
-export const Default = () => <Counter initialValue={0} />;
+export const Default = {
+  args: {
+  },
+  parameters: {
+  }
+};
+
+export const WithInitialValue = {
+  args: {
+    initialValue: '1',
+  },
+  parameters: {
+  }
+};

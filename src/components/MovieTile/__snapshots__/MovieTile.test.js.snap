@@ -1,27 +1,50 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`MovieTile Component matches snapshot 1`] = `
-<DocumentFragment>
-  <div
-    class="movie-tile"
+exports[`MovieTile should match snapshot 1`] = `
+<div
+  className="border"
+  data-testid="movie-tile"
+>
+  <span
+    className="float-end"
+    data-testid="edit-movie"
+    onClick={[Function]}
   >
-    <img
-      alt="Pulp Fiction poster"
-      src="https://via.placeholder.com/150"
-    />
-    <div
-      class="movie-info"
-    >
-      <h4>
-        Pulp Fiction
-      </h4>
-      <p>
-        1994
-      </p>
-      <p>
-        Action, Drama
-      </p>
+    Edit
+  </span>
+  <div
+    onClick={[Function]}
+  >
+    <div>
+      <img
+        alt="Pulp Fiction"
+        className="img-fluid"
+        data-testid="movie-tile-poster"
+        onError={[Function]}
+        src="https://cdn.europosters.eu/image/1300/posters/pulp-fiction-cover-i1288.jpg"
+      />
+    </div>
+    <div>
+      <div>
+        <span
+          className="h5 float-begin"
+          data-testid="movie-tile-title"
+        >
+          Pulp Fiction
+        </span>
+        <span
+          className="h5 m-2 border border-2 rounded float-begin"
+          data-testid="movie-tile-year"
+        >
+          1994
+        </span>
+      </div>
+      <div
+        data-testid="movie-tile-genres"
+      >
+        Thriller, Crime
+      </div>
     </div>
   </div>
-</DocumentFragment>
+</div>
 `;

@@ -1,33 +1,72 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`MovieDetails Component matches snapshot 1`] = `
-<DocumentFragment>
+exports[`MovieDetails should match snapshot 1`] = `
+<div
+  className="container"
+  data-testid="movie-details"
+>
   <div
-    class="movie-details"
+    className="row"
   >
-    <img
-      alt="Pulp Fiction poster"
-      src="https://via.placeholder.com/150"
-    />
     <div
-      class="details-info"
+      className="col-md-3"
     >
-      <h2>
-        Pulp Fiction
-      </h2>
-      <p>
-        8.9
-      </p>
-      <p>
-        1994
-      </p>
-      <p>
-        2h 34min
-      </p>
-      <p>
-        Jules Winnfield and Vincent Vega are hit men...
-      </p>
+      <img
+        alt="Pulp Fiction"
+        className="img-fluid"
+        data-testid="movie-details-poster"
+        onError={[Function]}
+        src="https://cdn.europosters.eu/image/1300/posters/pulp-fiction-cover-i1288.jpg"
+      />
+    </div>
+    <div
+      className="col-md-9"
+    >
+      <div
+        className="d-flex"
+      >
+        <span
+          className="h3"
+          data-testid="movie-details-title"
+        >
+          Pulp Fiction
+        </span>
+        <span
+          className="h5 ms-4 border border-2 rounded-circle"
+          data-testid="movie-details-vote"
+        >
+          8.3
+        </span>
+      </div>
+      <div
+        className="d-flex mb-4"
+        data-testid="movie-details-genres"
+      >
+        Thriller, Crime
+      </div>
+      <div
+        className="d-flex"
+      >
+        <span
+          className="h5 text-danger"
+          data-testid="movie-details-year"
+        >
+          1994
+        </span>
+        <span
+          className="h5 ms-4 text-danger"
+          data-testid="movie-details-runtime"
+        >
+          2h 34min
+        </span>
+      </div>
+      <div
+        className="d-flex h5 mt-4 text-start"
+        data-testid="movie-details-overview"
+      >
+        A burger-loving hit man, his philosophical partner, a drug-addled gangster's moll and a washed-up boxer converge in this sprawling, comedic crime caper. Their adventures unfurl in three stories that ingeniously trip back and forth in time.
+      </div>
     </div>
   </div>
-</DocumentFragment>
+</div>
 `;

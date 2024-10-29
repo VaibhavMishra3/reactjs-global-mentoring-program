@@ -1,25 +1,34 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SortControl Component matches snapshot 1`] = `
-<DocumentFragment>
-  <div
-    class="sort-control"
-  >
+exports[`SortControl should match snapshot 1`] = `
+<div
+  className="d-flex align-items-center"
+>
+  <div>
     <label>
       Sort by
     </label>
-    <select>
-      <option
-        value="releaseDate"
-      >
-        Release Date
-      </option>
+  </div>
+  <div
+    className="m-1"
+  >
+    <select
+      className="form-select"
+      data-testid="sort-select"
+      onChange={[Function]}
+      value="release_date"
+    >
       <option
         value="title"
       >
         Title
       </option>
+      <option
+        value="release_date"
+      >
+        Release date
+      </option>
     </select>
   </div>
-</DocumentFragment>
+</div>
 `;

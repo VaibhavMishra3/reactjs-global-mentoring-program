@@ -1,19 +1,14 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import MovieListPage from "./pages/MovieListPage";
-import SearchForm from "./components/SearchForm/SearchForm";
-import MovieDetailsLoader from "./components/MovieDetailsLoader/MovieDetailsLoader";
+import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+import './App.css';
+import Home from './components/Home/Home';
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<MovieListPage />}>
-          <Route index element={<SearchForm />} /> {/* Default route for SearchForm */}
-          <Route path=":movieId" element={<MovieDetailsLoader />} /> {/* Dynamic route for movie details */}
-        </Route>
-      </Routes>
-    </Router>
+    <div className='App'>
+      <Home />
+    </div>
   );
 }
 

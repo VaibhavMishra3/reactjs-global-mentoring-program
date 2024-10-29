@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dialog should match snapshot 1`] = `
+Array [
+  <div
+    className="fade modal-backdrop show"
+    onClick={[Function]}
+  />,
+  <div
+    aria-modal={true}
+    className="fade modal show"
+    onClick={[Function]}
+    onMouseUp={[Function]}
+    role="dialog"
+    style={
+      Object {
+        "display": "block",
+      }
+    }
+    tabIndex={-1}
+  >
+    <div
+      className="modal-dialog modal-lg modal-dialog-centered"
+      onMouseDown={[Function]}
+    >
+      <div
+        className="modal-content"
+      >
+        <div
+          className="modal-header"
+        >
+          <div
+            className="modal-title h4"
+          >
+            Title
+          </div>
+          <button
+            aria-label="Close"
+            className="btn-close"
+            onClick={[Function]}
+            type="button"
+          />
+        </div>
+        <div>
+          children
+        </div>
+      </div>
+    </div>
+  </div>,
+]
+`;

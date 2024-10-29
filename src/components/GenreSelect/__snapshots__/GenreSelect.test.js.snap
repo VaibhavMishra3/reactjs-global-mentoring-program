@@ -1,0 +1,206 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GenreSelect should match snapshot 1`] = `
+<fieldset
+  className="d-flex"
+>
+  <div
+    className="form-check form-check-inline"
+  >
+    <input
+      className="form-check-input"
+      data-testid="genre-select-checkbox"
+      defaultChecked=""
+      id="Action"
+      name="Action"
+      onClick={[Function]}
+      type="checkbox"
+      value="Action"
+    />
+    <label
+      className="form-check-label"
+      data-testid="genre-select-label"
+      htmlFor="Action"
+      role="label"
+    >
+      Action
+    </label>
+  </div>
+  <div
+    className="form-check form-check-inline"
+  >
+    <input
+      className="form-check-input"
+      data-testid="genre-select-checkbox"
+      defaultChecked="checked"
+      id="Adventure"
+      name="Adventure"
+      onClick={[Function]}
+      type="checkbox"
+      value="Adventure"
+    />
+    <label
+      className="form-check-label"
+      data-testid="genre-select-label"
+      htmlFor="Adventure"
+      role="label"
+    >
+      Adventure
+    </label>
+  </div>
+  <div
+    className="form-check form-check-inline"
+  >
+    <input
+      className="form-check-input"
+      data-testid="genre-select-checkbox"
+      defaultChecked="checked"
+      id="Comedy"
+      name="Comedy"
+      onClick={[Function]}
+      type="checkbox"
+      value="Comedy"
+    />
+    <label
+      className="form-check-label"
+      data-testid="genre-select-label"
+      htmlFor="Comedy"
+      role="label"
+    >
+      Comedy
+    </label>
+  </div>
+  <div
+    className="form-check form-check-inline"
+  >
+    <input
+      className="form-check-input"
+      data-testid="genre-select-checkbox"
+      defaultChecked=""
+      id="Crime"
+      name="Crime"
+      onClick={[Function]}
+      type="checkbox"
+      value="Crime"
+    />
+    <label
+      className="form-check-label"
+      data-testid="genre-select-label"
+      htmlFor="Crime"
+      role="label"
+    >
+      Crime
+    </label>
+  </div>
+  <div
+    className="form-check form-check-inline"
+  >
+    <input
+      className="form-check-input"
+      data-testid="genre-select-checkbox"
+      defaultChecked=""
+      id="Fantasy"
+      name="Fantasy"
+      onClick={[Function]}
+      type="checkbox"
+      value="Fantasy"
+    />
+    <label
+      className="form-check-label"
+      data-testid="genre-select-label"
+      htmlFor="Fantasy"
+      role="label"
+    >
+      Fantasy
+    </label>
+  </div>
+  <div
+    className="form-check form-check-inline"
+  >
+    <input
+      className="form-check-input"
+      data-testid="genre-select-checkbox"
+      defaultChecked=""
+      id="History"
+      name="History"
+      onClick={[Function]}
+      type="checkbox"
+      value="History"
+    />
+    <label
+      className="form-check-label"
+      data-testid="genre-select-label"
+      htmlFor="History"
+      role="label"
+    >
+      History
+    </label>
+  </div>
+  <div
+    className="form-check form-check-inline"
+  >
+    <input
+      className="form-check-input"
+      data-testid="genre-select-checkbox"
+      defaultChecked=""
+      id="Science Fiction"
+      name="Science Fiction"
+      onClick={[Function]}
+      type="checkbox"
+      value="Science Fiction"
+    />
+    <label
+      className="form-check-label"
+      data-testid="genre-select-label"
+      htmlFor="Science Fiction"
+      role="label"
+    >
+      Science Fiction
+    </label>
+  </div>
+  <div
+    className="form-check form-check-inline"
+  >
+    <input
+      className="form-check-input"
+      data-testid="genre-select-checkbox"
+      defaultChecked=""
+      id="Thriller"
+      name="Thriller"
+      onClick={[Function]}
+      type="checkbox"
+      value="Thriller"
+    />
+    <label
+      className="form-check-label"
+      data-testid="genre-select-label"
+      htmlFor="Thriller"
+      role="label"
+    >
+      Thriller
+    </label>
+  </div>
+  <div
+    className="form-check form-check-inline"
+  >
+    <input
+      className="form-check-input"
+      data-testid="genre-select-checkbox"
+      defaultChecked=""
+      id="Western"
+      name="Western"
+      onClick={[Function]}
+      type="checkbox"
+      value="Western"
+    />
+    <label
+      className="form-check-label"
+      data-testid="genre-select-label"
+      htmlFor="Western"
+      role="label"
+    >
+      Western
+    </label>
+  </div>
+</fieldset>
+`;

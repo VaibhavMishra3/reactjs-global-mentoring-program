@@ -1,17 +1,16 @@
-import React from "react";
-import GenreSelect from "./GenreSelect";
+import GenreSelect from './GenreSelect';
+import { GENRES } from '../../constants/data.js';
 
 export default {
-  title: "Components/GenreSelect",
-  component: GenreSelect,
+  component: GenreSelect
 };
 
-const genres = ["Action", "Comedy", "Drama"];
-
-export const Default = () => (
-  <GenreSelect
-    genres={genres}
-    selectedGenre="Comedy"
-    onSelect={(genre) => alert(`Selected genre: ${genre}`)}
-  />
-);
+export const Default = {
+  args: {
+    genres: GENRES,
+    selectedGenres: [],
+    onSelect: (genres) => console.log(`select genres: ${genres}`)
+  },
+  parameters: {
+  }
+};

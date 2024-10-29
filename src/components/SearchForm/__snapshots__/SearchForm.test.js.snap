@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchForm should match snapshot 1`] = `
+<div
+  className="container"
+  data-testid="search-form"
+>
+  <label
+    className="h4 form-label d-flex"
+  >
+    Find your movie
+  </label>
+  <div
+    className="row"
+  >
+    <div
+      className="col-9"
+    >
+      <input
+        className="form-control"
+        data-testid="search-input"
+        onChange={[Function]}
+        onKeyDown={[Function]}
+        placeholder="What do you want to watch?"
+        title="What do you want to watch?"
+        type="text"
+        value="comedy"
+      />
+    </div>
+    <div
+      className="col-3"
+    >
+      <button
+        className="btn btn-primary d-flex"
+        data-testid="search-button"
+        disabled={false}
+        onClick={[Function]}
+        type="button"
+      >
+        Search
+      </button>
+    </div>
+  </div>
+</div>
+`;
