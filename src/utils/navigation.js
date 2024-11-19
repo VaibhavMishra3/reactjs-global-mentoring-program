@@ -1,6 +1,21 @@
-import { createSearchParams } from 'react-router-dom';
+export const navigationByParams = (pathname, search, genres, sort) => {
+  let query = {};
 
-export const navigation = (pathname, searchParams) => ({
-  pathname: pathname,
-  search: `?${createSearchParams(searchParams)}`
-});
+  if (search) {
+    query.search = search;
+  }
+  if (genres) {
+    query.genres = genres;
+  }
+  if (sort) {
+    query.sort = sort;
+  }
+
+  return {
+    pathname: pathname,
+    query: query
+  }
+};
+
+export const navigationByFilter = (pathname, filter) =>
+  navigationByParams(pathname, filter.search, filter.genres, filter.sort);

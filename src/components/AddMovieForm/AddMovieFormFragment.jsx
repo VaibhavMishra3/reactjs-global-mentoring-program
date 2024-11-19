@@ -1,24 +1,31 @@
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import React from 'react';
+import { useRouter } from 'next/router';
+import dynamic from 'next/dynamic';
 
-import AddMovieForm from './AddMovieForm';
 import { MovieService } from '../../services/MovieService';
-import { navigation } from '../../utils/navigation.js';
+import { filterType } from '../../constants/types.js';
+import { navigationByFilter } from '../../utils/navigation.js';
 
-const AddMovieFormFragment = () => {
-  const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
+const AddMovieForm = dynamic(() => import('./AddMovieForm'), { ssr: false });
+
+const AddMovieFormFragment = ({ filter }) => {
+  const router = useRouter();
 
   const handleSubmit = async (movie) => {
     const response = await MovieService.addMovie(movie);
-    navigate(navigation(`/${response.id}`, searchParams));
+    router.push(navigationByFilter(`/${response.id}`, filter));
   }
 
   return (
     <AddMovieForm
-      handleClose={() => navigate(navigation('/', searchParams))}
+      handleClose={() => router.push(navigationByFilter('/', filter))}
       handleSubmit={(movie) => handleSubmit(movie)}
     />
   );
 }
+
+AddMovieFormFragment.propTypes = {
+  filter: filterType.isRequired
+};
 
 export default AddMovieFormFragment;

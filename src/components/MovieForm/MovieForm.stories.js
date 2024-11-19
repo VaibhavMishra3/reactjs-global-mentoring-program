@@ -1,5 +1,5 @@
 import MovieForm from './MovieForm';
-import { MOCK_MOVIES } from '../../constants/mockData.js';
+import { MOCK_MOVIES } from '../../tests/mockData.js';
 
 export default {
   component: MovieForm

@@ -1,26 +1,33 @@
-import { useLoaderData, useNavigate, useSearchParams } from 'react-router-dom';
+import React from 'react';
+import { useRouter } from 'next/router';
+import dynamic from 'next/dynamic';
 
-import EditMovieForm from './EditMovieForm';
 import { MovieService } from '../../services/MovieService';
-import { navigation } from '../../utils/navigation.js';
+import { filterType, movieType } from '../../constants/types.js';
+import { navigationByFilter } from '../../utils/navigation.js';
 
-const EditMovieFormFragment = () => {
-  const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
-  const movie = useLoaderData();
+const EditMovieForm = dynamic(() => import('./EditMovieForm'), { ssr: false });
+
+const EditMovieFormFragment = ({ filter, movie }) => {
+  const router = useRouter();
 
   const handleSubmit = async (movie) => {
     const response = await MovieService.editMovie(movie);
-    navigate(navigation(`/${response.id}`, searchParams));
+    router.push(navigationByFilter(`/${response.id}`, filter));
   }
 
   return (
     <EditMovieForm
       movie={movie}
-      handleClose={() => navigate(navigation(`/${movie.id}`, searchParams))}
+      handleClose={() => router.push(navigationByFilter(`/${movie.id}`, filter))}
       handleSubmit={(movie) => handleSubmit(movie)}
     />
   );
 }
+
+EditMovieFormFragment.propTypes = {
+  filter: filterType.isRequired,
+  movie: movieType.isRequired
+};
 
 export default EditMovieFormFragment;

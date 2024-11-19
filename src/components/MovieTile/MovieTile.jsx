@@ -1,55 +1,47 @@
 import React from 'react';
-import { PropTypes } from 'prop-types';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
 
+import MoviePoster from '../MoviePoster/MoviePoster';
 import { formatGenres, formatYear } from '../../utils/formatters.js';
-import { movieType } from '../../constants/types.js';
-import { navigation } from '../../utils/navigation.js';
-import posterNotAvailable from '../../assets/images/poster-not-available.jpg';
+import { filterType, movieType } from '../../constants/types.js';
+import { navigationByFilter } from '../../utils/navigation.js';
 
-const MovieTile = ({ movie, handleClick }) => {
-  const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
-
-  const handleImageError = ({ target }) => {
-    target.src = posterNotAvailable;
-    target.alt = 'Poster not available';
-  };
+const MovieTile = ({ filter, movie }) => {
+  const router = useRouter();
 
   return (
     <div data-testid='movie-tile' className='border'>
       <span
         data-testid='edit-movie'
         className='float-end'
-        onClick={() => navigate(navigation(`/${movie.id}/edit`, searchParams))}
+        onClick={() => router.push(navigationByFilter(`/${movie.id}/edit`, filter))}
       >
         Edit
       </span>
-      <div onClick={() => handleClick(movie)}>
+      <Link href={navigationByFilter(`/${movie.id}`, filter)}>
         <div>
-          <img
-            data-testid='movie-tile-poster'
-            className='img-fluid'
+          <MoviePoster
+            testId={'movie-tile-poster'}
             src={movie.poster_path}
             alt={movie.title}
-            onError={handleImageError}
           />
         </div>
+      </Link>
+      <div>
         <div>
-          <div>
-            <span data-testid='movie-tile-title' className='h5 float-begin'>{movie.title}</span>
-            {movie.release_date && <span data-testid='movie-tile-year' className='h5 m-2 border border-2 rounded float-begin'>{formatYear(movie.release_date)}</span>}
-          </div>
-          {movie.genres && <div data-testid='movie-tile-genres'>{formatGenres(movie.genres)}</div>}
+          <span data-testid='movie-tile-title' className='h5 float-begin'>{movie.title}</span>
+          {movie.release_date && <span data-testid='movie-tile-year' className='h5 m-2 border border-2 rounded float-begin'>{formatYear(movie.release_date)}</span>}
         </div>
+        {movie.genres && <div data-testid='movie-tile-genres'>{formatGenres(movie.genres)}</div>}
       </div>
     </div>
   )
 }
 
 MovieTile.propTypes = {
-  movie: movieType.isRequired,
-  handleClick: PropTypes.func.isRequired
+  filter: filterType.isRequired,  
+  movie: movieType.isRequired
 };
 
 export default MovieTile;

@@ -1,29 +1,20 @@
 import React from 'react'
-import { Outlet, useNavigate, useSearchParams } from 'react-router-dom';
+import { PropTypes } from 'prop-types';
+import { useRouter } from 'next/router';
 
 import SearchForm from './SearchForm'
-import { SEARCH_QUERY_PARAM, DEFAULT_SEARCH } from '../../constants/data.js';
-import { navigation } from '../../utils/navigation.js';
+import { filterType } from '../../constants/types.js';
+import { navigationByFilter } from '../../utils/navigation.js';
 
-const SearchFormFragment = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  const updateSearchParams = (key, value) => {
-    setSearchParams(params => {
-      params.set(key, value);
-      return params;
-    });
-  }
-
-  const navigate = useNavigate();
-  const search = searchParams.get(SEARCH_QUERY_PARAM) || DEFAULT_SEARCH;
+const SearchFormFragment = ({ filter, search, handleSearch }) => {
+  const router = useRouter();
 
   return (
     <div>
       <span
         data-testid='add-movie'
         className='float-end'
-        onClick={() => navigate(navigation('/new', searchParams))}
+        onClick={() => router.push(navigationByFilter('/new', filter))}
       >
         Add movie
       </span>
@@ -31,11 +22,16 @@ const SearchFormFragment = () => {
         initialSearchText={search}
         placeholderText='What do you want to watch?'
         buttonText='Search'
-        handleSearch={(value) => updateSearchParams(SEARCH_QUERY_PARAM, value)}
+        handleSearch={handleSearch}
       />
-      <Outlet />
     </div>
   )
 }
+
+SearchFormFragment.propTypes = {
+  filter: filterType.isRequired,
+  search: PropTypes.string.isRequired,
+  handleSearch: PropTypes.func.isRequired
+};
 
 export default SearchFormFragment;

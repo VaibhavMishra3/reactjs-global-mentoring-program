@@ -72,7 +72,7 @@ exports[`MovieForm should match snapshot 1`] = `
             onChange={[Function]}
             placeholder="https://"
             type="text"
-            value="https://cdn.europosters.eu/image/1300/posters/pulp-fiction-cover-i1288.jpg"
+            value="https://image.tmdb.org/t/p/w500/dM2w364MScsjFf8pfMbaWUcWrR.jpg"
           />
         </div>
         <div

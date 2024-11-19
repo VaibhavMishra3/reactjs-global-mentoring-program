@@ -1,28 +1,26 @@
 import React from 'react';
-import { Outlet, useLoaderData, useNavigate, useSearchParams } from 'react-router-dom';
-import { CloseButton } from 'react-bootstrap';
+import Link from 'next/link';
 
 import MovieDetails from './MovieDetails';
-import { navigation } from '../../utils/navigation.js';
+import { filterType, movieType } from '../../constants/types.js';
+import { navigationByFilter } from '../../utils/navigation.js';
 
-const MovieDetailsFragment = () => {
-  const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
-  const movie = useLoaderData();
-
+const MovieDetailsFragment = ({ filter, movie }) => {
   return (
     <div>
-      <span
+      <Link
         data-testid='close-movie-details'
-        className='float-end'
-        onClick={() => navigate(navigation('/', searchParams))}
-      >
-        <CloseButton />
-      </span>
+        className='btn-close float-end'
+        href={navigationByFilter('/', filter)}
+      />
       <MovieDetails movie={movie} />
-      <Outlet />
     </div>
   );
 }
+
+MovieDetailsFragment.propTypes = {
+  filter: filterType.isRequired,
+  movie: movieType.isRequired
+};
 
 export default MovieDetailsFragment;

@@ -3,7 +3,7 @@ import { PropTypes } from 'prop-types';
 import { Portal } from 'react-portal';
 import { Modal, CloseButton } from 'react-bootstrap';
 
-function Dialog({ title, children, handleClose }) {
+const Dialog = ({ title, children, handleClose }) => {
   return (
     <Portal>
       <Modal show={true} centered size='lg'>

@@ -2,7 +2,7 @@ const BACKEND_URL = 'http://localhost:4000/movies';
 
 export const MovieService = {
 
-  getMovies: async ({ search, genres, sort }, onSuccess, onError) => {
+  getMovies: async ({ search, genres, sort }) => {
     const queryParams = [
       'sortOrder=asc',
       'searchBy=title',
@@ -15,14 +15,9 @@ export const MovieService = {
     const queryString = queryParams.join('&');
     const url = `${BACKEND_URL}?${queryString}`;
 
-    try {
-      await fetch(url)
-        .then(response => response.json())
-        .then(data => onSuccess(data.data))
-        .catch(error => onError(error));
-    } catch (error) {
-      onError(error);
-    }
+    return await fetch(url)
+      .then(response => response.json())
+      .then(data => data.data);
   },
 
   getMovie: async (movieId) => {

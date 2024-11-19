@@ -1,27 +1,19 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 
+import MoviePoster from '../MoviePoster/MoviePoster';
 import { formatGenres, formatYear, formatRuntime } from '../../utils/formatters.js';
 import { movieType } from '../../constants/types.js';
-import posterNotAvailable from '../../assets/images/poster-not-available.jpg';
 
 const MovieDetails = ({ movie }) => {
-
-  const handleImageError = ({ target }) => {
-    target.src = posterNotAvailable;
-    target.alt = 'Poster not available';
-  };
-
   return (
     <Container data-testid='movie-details'>
       <Row>
         <Col md={3}>
-          <img
-            data-testid='movie-details-poster'
-            className='img-fluid'
+          <MoviePoster
+            testId={'movie-details-poster'}
             src={movie.poster_path}
             alt={movie.title}
-            onError={handleImageError}
           />
         </Col>
         <Col md={9}>

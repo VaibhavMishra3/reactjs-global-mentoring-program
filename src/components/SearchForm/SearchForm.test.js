@@ -53,7 +53,7 @@ describe('SearchForm', () => {
   });
 
   // Test that after typing to the input and a "click" event on the Submit button, the "onChange" prop is called with proper value
-  it('should call the handler after typing to the input and clicking on the Submit button, ', () => {
+  it('should call the handler after typing to the input and clicking on the Submit button', () => {
     const handleSearchMock = jest.fn();
 
     render(
@@ -88,7 +88,6 @@ describe('SearchForm', () => {
     );
 
     const input = screen.getByTestId('search-input');
-    const button = screen.getByTestId('search-button');
 
     fireEvent.change(input, { target: { value: 'comedy' } });
     fireEvent.keyDown(input, { keyCode: KEY_ENTER_CODE });

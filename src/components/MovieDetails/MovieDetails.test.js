@@ -3,7 +3,7 @@ import renderer from 'react-test-renderer';
 import { cleanup, render, screen } from '@testing-library/react'
 
 import MovieDetails from './MovieDetails';
-import { MOCK_MOVIES } from '../../constants/mockData.js';
+import { MOCK_MOVIES } from '../../tests/mockData.js';
 
 describe('MovieDetails', () => {
 
@@ -31,7 +31,7 @@ describe('MovieDetails', () => {
     );
 
     const image = screen.getByTestId('movie-details-poster');
-    expect(image.getAttribute('src')).toEqual(movie.poster_path);
+    expect(image.getAttribute('src')).toEqual('http://localhost/_next/image?url=https%3A%2F%2Fimage.tmdb.org%2Ft%2Fp%2Fw500%2FdM2w364MScsjFf8pfMbaWUcWrR.jpg&w=640&q=75');
     expect(image.getAttribute('alt')).toEqual(movie.title);
 
     expect(screen.getByTestId('movie-details-title')).toHaveTextContent(movie.title);

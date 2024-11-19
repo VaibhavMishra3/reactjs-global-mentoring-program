@@ -12,38 +12,53 @@ exports[`MovieTile should match snapshot 1`] = `
   >
     Edit
   </span>
-  <div
+  <a
+    href="/680?sort=title"
     onClick={[Function]}
+    onMouseEnter={[Function]}
+    onTouchStart={[Function]}
   >
     <div>
       <img
         alt="Pulp Fiction"
         className="img-fluid"
+        data-nimg="1"
         data-testid="movie-tile-poster"
+        decoding="async"
+        height={500}
+        loading="lazy"
         onError={[Function]}
-        src="https://cdn.europosters.eu/image/1300/posters/pulp-fiction-cover-i1288.jpg"
+        onLoad={[Function]}
+        src="/_next/image?url=https%3A%2F%2Fimage.tmdb.org%2Ft%2Fp%2Fw500%2FdM2w364MScsjFf8pfMbaWUcWrR.jpg&w=640&q=75"
+        srcSet="/_next/image?url=https%3A%2F%2Fimage.tmdb.org%2Ft%2Fp%2Fw500%2FdM2w364MScsjFf8pfMbaWUcWrR.jpg&w=256&q=75 1x, /_next/image?url=https%3A%2F%2Fimage.tmdb.org%2Ft%2Fp%2Fw500%2FdM2w364MScsjFf8pfMbaWUcWrR.jpg&w=640&q=75 2x"
+        style={
+          Object {
+            "color": "transparent",
+          }
+        }
+        width={250}
       />
     </div>
+  </a>
+  <div>
     <div>
-      <div>
-        <span
-          className="h5 float-begin"
-          data-testid="movie-tile-title"
-        >
-          Pulp Fiction
-        </span>
-        <span
-          className="h5 m-2 border border-2 rounded float-begin"
-          data-testid="movie-tile-year"
-        >
-          1994
-        </span>
-      </div>
-      <div
-        data-testid="movie-tile-genres"
+      <span
+        className="h5 float-begin"
+        data-testid="movie-tile-title"
       >
-        Thriller, Crime
-      </div>
+        Pulp Fiction
+      </span>
+      <span
+        className="h5 m-2 border border-2 rounded float-begin"
+        data-testid="movie-tile-year"
+      >
+        1994
+      </span>
+    </div>
+    <div
+      data-testid="movie-tile-genres"
+    >
+      Thriller, Crime
     </div>
   </div>
 </div>

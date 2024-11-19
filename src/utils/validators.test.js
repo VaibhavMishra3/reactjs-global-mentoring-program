@@ -2,12 +2,12 @@ import { isNotEmpty, isValidDate, isValidURL } from './validators.js';
 
 describe('validators', () => {
 
-  it('should validate isNotEmpty', () => {
+  it('should validate not empty string', () => {
     expect(isNotEmpty('')).toBe(false);
     expect(isNotEmpty(' ')).toBe(true);
   });
 
-  it('should validate isValidDate', () => {
+  it('should validate date', () => {
     expect(isValidDate('error')).toBe(false);
     expect(isValidDate('2001-01-01')).toBe(true);
 
@@ -22,7 +22,7 @@ describe('validators', () => {
     expect(isValidDate('2022-01-32')).toBe(false);
   });
 
-  it('should validate isValidURL', () => {
+  it('should validate URL', () => {
     expect(isValidURL('error')).toBe(false);
     expect(isValidURL('http://poster')).toBe(true);
     expect(isValidURL('https://poster')).toBe(true);
